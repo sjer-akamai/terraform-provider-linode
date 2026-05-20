@@ -5,19 +5,24 @@ provider "linode" {
   obj_bucket_force_delete = true
 }
 
-resource "linode_object_storage_bucket" "test" {
-  region = "{{.Region}}"
-  label  = "{{.Label}}-bucket"
-}
-
 resource "linode_object_storage_key" "test" {
   label = "{{.Label}}-key"
+  {{if .Region }}
+  regions = ["{{.Region}}"]
+  {{else}}
+  regions = ["{{.Cluster}}"]
+  {{end}}
+}
 
-  bucket_access {
-    region      = linode_object_storage_bucket.test.region
-    bucket_name = linode_object_storage_bucket.test.label
-    permissions = "read_write"
-  }
+resource "linode_object_storage_bucket" "test" {
+  {{if .Region }}
+  region = "{{.Region}}"
+  {{else}}
+  cluster = "{{.Cluster}}"
+  {{end}}
+  label  = "{{.Label}}-bucket"
+  access_key = linode_object_storage_key.test.access_key
+  secret_key = linode_object_storage_key.test.secret_key
 }
 
 resource "linode_monitor_logs_destination" "foobar" {

@@ -62,6 +62,10 @@ import (
 	"github.com/linode/terraform-provider-linode/v3/linode/lock"
 	"github.com/linode/terraform-provider-linode/v3/linode/locks"
 	"github.com/linode/terraform-provider-linode/v3/linode/maintenancepolicies"
+	"github.com/linode/terraform-provider-linode/v3/linode/monitoralertchannels"
+	"github.com/linode/terraform-provider-linode/v3/linode/monitoralertdefinition"
+	"github.com/linode/terraform-provider-linode/v3/linode/monitoralertdefinitionentities"
+	"github.com/linode/terraform-provider-linode/v3/linode/monitoralertdefinitions"
 	"github.com/linode/terraform-provider-linode/v3/linode/monitorlogsdestination"
 	"github.com/linode/terraform-provider-linode/v3/linode/monitorlogsdestinations"
 	"github.com/linode/terraform-provider-linode/v3/linode/monitorlogsstream"
@@ -286,6 +290,7 @@ func (p *FrameworkProvider) Resources(ctx context.Context) []func() resource.Res
 		firewallsettings.NewResource,
 		linodeinterface.NewResource,
 		monitorlogsdestination.NewResource,
+		monitoralertdefinition.NewResource,
 		monitorlogsstream.NewResource,
 	}
 }
@@ -381,6 +386,9 @@ func (p *FrameworkProvider) DataSources(ctx context.Context) []func() datasource
 		consumerimagesharegrouptokens.NewDataSource,
 		consumerimagesharegroup.NewDataSource,
 		consumerimagesharegroupimageshares.NewDataSource,
+		monitoralertdefinition.NewDataSource,
+		monitoralertdefinitions.NewDataSource,
+		monitoralertdefinitionentities.NewDataSource,
 		lkenodepool.NewDataSource,
 		regionvpcavailability.NewDataSource,
 		regionsvpcavailability.NewDataSource,
@@ -389,5 +397,6 @@ func (p *FrameworkProvider) DataSources(ctx context.Context) []func() datasource
 		monitorlogsstream.NewDataSource,
 		monitorlogsstreamhistory.NewDataSource,
 		monitorlogsstreams.NewDataSource,
+		monitoralertchannels.NewDataSource,
 	}
 }
